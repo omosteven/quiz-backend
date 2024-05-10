@@ -1,0 +1,25 @@
+{
+  "name": "quizeapp_backend",
+  "version": "1.0.0",
+  "description": "This is the backend application of our quiz app.",
+  "main": "App.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "keywords": [
+    "npm",
+    "run",
+    "build"
+  ],
+  "author": "Steven Omole-Adebomi & Godwin Okeke Obiora",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.3.4",
+    "mongoose-timestamp": "^0.6.0",
+    "nodemon": "^3.1.0"
+  }
+}
