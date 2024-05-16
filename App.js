@@ -8,6 +8,10 @@ const cors = require("cors");
 
 const AppRoutes = require("./app/routes/index.js");
 
+const QuizRoutes = require("./app/routes/quiz.js");
+
+const AuthRoute = require("./app/routes/user.js");
+
 const connectDb = require("./config/Database");
 
 dotenv.config();
@@ -23,6 +27,8 @@ app.use(bodyParser.json({ limit: "200mb" }));
 //connecting the database
 connectDb();
 
+require("./app/middleware/AuthWare/AuthWare.js");
+
 app.use(cors());
 
 app.use((req, res, next) => {
@@ -32,7 +38,7 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
-  
+
   next();
 });
 
@@ -46,6 +52,10 @@ app.use((error, req, res, next) => {
 });
 
 app.use("/api/v1", AppRoutes);
+
+app.use("/auth", AuthRoute);
+
+app.use("/quiz", QuizRoutes);
 
 app.use("/*", (req, res) => {
   return res.status(404).json({
