@@ -9,24 +9,24 @@ const UsersSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  
-  token: {
-    type: String,
-    required: false,
-  },
 
   password: {
     type: String,
     required: true
+  },
+
+  role: {
+    type: String,
+    enum: ["admin", "user"],
+    default: "user",
+    required: true
+  },
+  
+  token: {
+    type: String,
+    required: false,
   }
 });
-
-
-  // role: {
-  //   type: String,
-  //   enum: [admin, user],
-  //   required: true
-  // }
 
 UsersSchema.plugin(timeStamps, {
   createdAt: "created_at",

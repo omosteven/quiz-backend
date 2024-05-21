@@ -20,7 +20,7 @@ router.post(
 router.post(
   "/login",
   async (req, res, next) => {
-    passport.authenticate("login", async (err, user, info) => {
+    passport.authenticate("login", async (err, user) => {
       try {
         if (err) {
           return next(err);
@@ -28,7 +28,7 @@ router.post(
 
         if (!user) {
           const error = new Error("Username or password is incorrect");
-          return next (error)
+          return next (error);
         }
 
         req.login(user, { session: false }, 
@@ -36,7 +36,7 @@ router.post(
             if (error) {
               return next(error)
             }
-            const body = { _id: user._id, email: user.email };
+            const body = { _id: user._id, email: user.email, role: user.role };
             const token = jwt.sign({ user: body }, process.env.JWT_SECRET);
 
             return res.json({ token })

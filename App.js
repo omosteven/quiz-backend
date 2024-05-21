@@ -10,7 +10,7 @@ const AppRoutes = require("./app/routes/index.js");
 
 const QuizRoutes = require("./app/routes/quiz.js");
 
-const AuthRoute = require("./app/routes/user.js");
+const AuthRoute = require("./app/routes/auth.js");
 
 const connectDb = require("./config/Database");
 

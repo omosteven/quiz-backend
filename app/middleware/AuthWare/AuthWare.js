@@ -27,11 +27,13 @@ passport.use(
   new localStrategy(
     {
       usernameField: "email",
-      passwordField: "password"
+      passwordField: "password",
+      passReqToCallback: true
     },
-    async (email, password, done) => {
+    async (req, email, password, done) => {
       try {
-        const user = await User.create({ email, password });
+        const { role } = req.body;
+        const user = await User.create({ email, password, role });
         return done(null, user);
       } catch (error) {
         return done(error);
@@ -47,7 +49,7 @@ passport.use(
       usernameField: "email",
       passwordField: "password"
     },
-    async (email, password, done) => {
+    async ( email, password, done) => {
       try {
         const user = await User.findOne({ email });
 
@@ -61,7 +63,7 @@ passport.use(
           return done(null, false, { message: "Wrong password" });
         }
 
-        return done(null, user, { message: "Logged in successfully" })
+        return done(null, user, { message: "Logged in successfully" });
          
       } catch (error) {
         return done (error);
@@ -69,3 +71,12 @@ passport.use(
     }
   )
 )
+
+const isAdmin = (req, res, next) => {
+  if (req.role !== "admin") {
+    return res.status(403).send({ message: "Require Admin Role!"});
+  }
+  next();
+}
+
+module.exports = { isAdmin };
